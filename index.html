@@ -1,0 +1,53 @@
+<html>
+<head>
+
+    <title>Counting Widget</title>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    
+    <script>
+        var delaySecs = 3; // 3 seconds
+    </script>
+</head>
+
+<body>
+
+    <h1>The numbers will updated every 3 seconds</h1>
+    <hr/>
+
+    <h1>number of registered words.. <span id="n_reg_word"><span></h1>
+    <h2>number of translation requests.. <span id="n_translation"><span></h2>
+    <h3>number of visitor.. <span id="n_visitor"><span></h3>
+    <h4>number of subscriber.. <span id="n_subscriber"><span></h4>
+
+<script>
+    $(document).ready(function(){
+
+        setInterval(function()
+        { 
+            $.ajax({
+              type:"get",
+              url:"counter.php",
+              datatype:"json",
+              success:function(data)
+              {
+                  var r = JSON.parse(data);
+                  $("span#n_reg_word").html(r['n_reg_word']);
+                  $("span#n_translation").html(r['n_translation']);
+                  $("span#n_visitor").html(r['n_visitor']);
+                  $("span#n_subscriber").html(r['n_subscriber']);
+              }
+            });
+        }, delaySecs*1000);//time in milliseconds
+
+    });
+</script>
+
+</body>
+
+
+</html>
